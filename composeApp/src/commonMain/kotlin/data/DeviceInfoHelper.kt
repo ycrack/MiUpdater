@@ -10,7 +10,8 @@ object DeviceInfoHelper {
     data class Region(
         val regionNameExt: String,
         val regionCode: String,
-        val regionName: String = regionCode
+        val regionName: String = regionCode,
+        val customized: String = XIAOMI
     )
 
     data class Device(
@@ -234,9 +235,11 @@ object DeviceInfoHelper {
     private val TR = Region("_tr_global", "TR")
     private val IN = Region("_in_global", "IN")
     private val JP = Region("_jp_global", "JP")
+    private val JPSB = Region("_jp_sb_global", "JP", "JP (SoftBank)", "SB")
+    private val JPKD = Region("_jp_kd_global", "JP", "JP (KDDI)", "KD")
     private val KR = Region("_kr_global", "KR")
 
-    private val regionList = listOf(CN, GL, EEA, RU, TW, ID, TR, IN, JP, KR)
+    private val regionList = listOf(CN, GL, EEA, RU, TW, ID, TR, IN, JP, JPKD, JPSB, KR)
 
     val deviceNames = deviceList.map { it.deviceName }
 
@@ -266,9 +269,14 @@ object DeviceInfoHelper {
         return region.regionNameExt
     }
 
-    fun deviceCode(androidVersion: String, codeName: String, regionCode: String): String {
+    fun customizedRegion(regionName: String): String {
+        val region = regionList.find { it.regionName == regionName } ?: return XIAOMI
+        return region.customized
+    }
+
+    fun deviceCode(androidVersion: String, codeName: String, regionCode: String, customized: String): String {
         val android = androidList.find { it.androidNumericCode == androidVersion } ?: return ""
         val device = deviceList.find { it.codeName == codeName } ?: return ""
-        return "${android.androidLetterCode}${device.deviceCode}${regionCode}$XIAOMI"
+        return "${android.androidLetterCode}${device.deviceCode}${regionCode}${customized}"
     }
 }

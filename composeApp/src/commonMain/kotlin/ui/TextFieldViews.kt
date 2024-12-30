@@ -88,18 +88,13 @@ fun TextFieldViews(
             onValueChange = deviceNameFlow,
             label = stringResource(Res.string.device_name)
         )
-        AutoCompleteTextField(
-            text = codeName,
-            items = DeviceInfoHelper.codeNames,
-            onValueChange = codeNameFlow,
-            label = stringResource(Res.string.code_name)
-        )
         Row {
-            TextFieldWithDropdown(
+            AutoCompleteTextField(
                 modifier = Modifier.weight(1f).padding(start = 12.dp, end = 6.dp, bottom = 12.dp),
-                text = deviceRegion,
-                items = DeviceInfoHelper.regionNames,
-                label = stringResource(Res.string.regions_code)
+                text = codeName,
+                items = DeviceInfoHelper.codeNames,
+                onValueChange = codeNameFlow,
+                label = stringResource(Res.string.code_name)
             )
             TextFieldWithDropdown(
                 modifier = Modifier.weight(1f).padding(start = 6.dp, end = 12.dp, bottom = 12.dp),
@@ -108,6 +103,15 @@ fun TextFieldViews(
                 label = stringResource(Res.string.android_version)
             )
         }
+        TextFieldWithDropdown(
+            modifier = Modifier
+                .padding(horizontal = 12.dp)
+                .padding(bottom = 12.dp)
+                .fillMaxWidth(),
+            text = deviceRegion,
+            items = DeviceInfoHelper.regionNames,
+            label = stringResource(Res.string.regions_code)
+        )
         TextField(
             insideMargin = DpSize(16.dp, 20.dp),
             modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp),

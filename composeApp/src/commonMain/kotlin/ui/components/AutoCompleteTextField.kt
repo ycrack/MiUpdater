@@ -34,7 +34,11 @@ fun AutoCompleteTextField(
     text: MutableState<String>,
     items: List<String>,
     onValueChange: MutableStateFlow<String>,
-    label: String
+    label: String,
+    modifier: Modifier = Modifier
+        .padding(horizontal = 12.dp)
+        .padding(bottom = 12.dp)
+        .fillMaxWidth(),
 ) {
     var isDropdownExpanded by remember { mutableStateOf(false) }
 
@@ -42,10 +46,7 @@ fun AutoCompleteTextField(
     val focusManager = LocalFocusManager.current
 
     ExposedDropdownMenuBox(
-        modifier = Modifier
-            .padding(horizontal = 12.dp)
-            .padding(bottom = 12.dp)
-            .fillMaxWidth(),
+        modifier = modifier,
         expanded = isDropdownExpanded,
         onExpandedChange = { isDropdownExpanded = text.value.isNotEmpty() }
     ) {

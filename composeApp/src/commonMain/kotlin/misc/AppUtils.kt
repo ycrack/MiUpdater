@@ -66,7 +66,8 @@ fun updateRomInfo(
     searchKeywords: MutableState<List<String>>
 ) {
     val regionCode = DeviceInfoHelper.regionCode(deviceRegion.value)
-    val deviceCode = DeviceInfoHelper.deviceCode(androidVersion.value, codeName.value, regionCode)
+    val customizedRegion = DeviceInfoHelper.customizedRegion(deviceRegion.value)
+    val deviceCode = DeviceInfoHelper.deviceCode(androidVersion.value, codeName.value, regionCode, customizedRegion)
     val regionNameExt = DeviceInfoHelper.regionNameExt(deviceRegion.value)
     val codeNameExt = codeName.value + regionNameExt
     val systemVersionExt = systemVersion.value.uppercase().replace("^OS1".toRegex(), "V816").replace("AUTO$".toRegex(), deviceCode)
